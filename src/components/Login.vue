@@ -1,5 +1,6 @@
 <template>
   <div class="login-page">
+    <TheToast></TheToast>
     <div class="login-card">
       <div class="text-center">
         <img
@@ -17,6 +18,8 @@
           id="email"
           v-model="form.email"
           placeholder="Enter Email Address"
+          required
+          ref="email"
         />
 
         <label class="block mt-3" for="password">Password</label>
@@ -25,6 +28,8 @@
           v-model="form.password"
           id="password"
           placeholder="Enter Password"
+          required
+          ref="password"
         />
 
         <button type="submit" class="w-100 mt-3">Login</button>
@@ -55,8 +60,21 @@ export default {
   }),
   methods: {
     handleSubmit() {
-      if (!this.form.email || !this.form.password) {
-        alert("Please enter email and password");
+      if (!this.form.email) {
+        this.$eventBus.emit("toast", {
+          type: "Error",
+          message: "Email is required",
+        });
+        this.$refs.email.focus();
+        return;
+      }
+
+      if (this.form.password.length < 6) {
+        this.$eventBus.emit("toast", {
+          type: "Error",
+          message: "Password must be at least 6 characters",
+        });
+        this.$refs.password.focus();
         return;
       }
     },
