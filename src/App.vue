@@ -1,19 +1,21 @@
 <template>
   <div>
-    <login></login>
-    <div class="toasts">
+    <router-view></router-view>
+
+    <!-- <div class="toasts"> -->
+    <TransitionGroup name="animation" tag="div" class="toasts">
       <the-toast
         v-for="(toast, i) in toasts"
         :key="i"
         :toastType="toast.type"
         :toastMessage="toast.message"
       ></the-toast>
-    </div>
+    </TransitionGroup>
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
-import Login from "./components/Login.vue";
 import TheToast from "./components/TheToast.vue";
 export default {
   data: () => ({
@@ -29,7 +31,6 @@ export default {
     ],
   }),
   components: {
-    Login,
     TheToast,
   },
   mounted() {
@@ -44,4 +45,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.animation-enter-active,
+.animation-leave-active {
+  transition: all 0.5s ease;
+}
+.animation-enter-from,
+.animation-leave-to {
+  opacity: 0;
+  transform: translateX(100px);
+}
+</style>

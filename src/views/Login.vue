@@ -32,7 +32,9 @@
           ref="password"
         />
 
-        <button type="submit" class="w-100 mt-3">Login</button>
+        <TheButton :block="true" class="mt-3" type="submit" :loading="loggedIn">
+          Login
+        </TheButton>
 
         <div class="d-flex jc-between mt-3">
           <div>
@@ -51,13 +53,20 @@
 </template>
 
 <script>
+import axios from "axios";
+import TheButton from "../components/TheButton.vue";
+
 export default {
   data: () => ({
     form: {
       email: "",
       password: "",
     },
+    loggedIn: false,
   }),
+  components: {
+    TheButton,
+  },
   methods: {
     handleSubmit() {
       if (!this.form.email) {
@@ -77,6 +86,31 @@ export default {
         this.$refs.password.focus();
         return;
       }
+
+      this.loggedIn = true;
+      axios
+        .post("https://api.epharma4u.com/api/v1/user/login", this.form)
+        .then((res) => {
+          console.log(res.data);
+          this.$eventBus.emit("toast", {
+            type: "Success",
+            message: res.data.user.user_name + " Logged in successfully",
+          });
+          localStorage.setItem("token", res.data.access_token);
+          this.$router.push("/dashboard");
+        })
+        .catch((err) => {
+          console.log(err.response.data.email);
+
+          let messageff = "Something went wrong";
+          this.$eventBus.emit("toast", {
+            type: "Error",
+            message: err.response.data.email || messageff,
+          });
+        })
+        .finally(() => {
+          this.loggedIn = false;
+        });
     },
   },
 };
