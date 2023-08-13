@@ -5,10 +5,10 @@
     </div>
     <div class="sidebar__bottom">
       <nav class="sidebar__nav">
-        <router-link to="/dashboard">Dashboard</router-link>
-        <router-link to="/dashboard/users">Users</router-link>
-        <router-link to="/dashboard/products">Products</router-link>
-        <router-link to="/dashboard/orders">Orders</router-link>
+        <router-link to="/dashboard/overview">Dashboard</router-link>
+        <router-link to="/dashboard/drugs">Drugs</router-link>
+        <router-link to="/dashboard/supplier">Supplier</router-link>
+        <router-link to="/dashboard/order">Orders</router-link>
       </nav>
     </div>
   </div>
