@@ -26,8 +26,21 @@
         <td>{{ supplier.contact_number }}</td>
         <td>{{ supplier.address }}</td>
         <td>
-          <the-button><i class="fa-solid fa-pen-to-square"></i></the-button>
-          <the-button><i class="fa-solid fa-trash"></i></the-button>
+          <the-button
+            @click="
+              selectSupplier = supplier;
+              editModal = true;
+            "
+            ><i class="fa-solid fa-pen-to-square"></i
+          ></the-button>
+          <the-button
+            @click="
+              selectSupplier = supplier;
+              deleteModal = true;
+            "
+          >
+            <i class="fa-solid fa-trash"></i>
+          </the-button>
         </td>
       </tr>
     </tbody>
@@ -74,6 +87,66 @@
       >
     </form>
   </the-modal>
+
+  <the-modal v-model="editModal" heading="Update Supplier">
+    <form @submit.prevent="updateSupplier">
+      <input
+        type="text"
+        class="mt-1 w-100"
+        v-model="selectSupplier.supplier_name"
+        placeholder="Supplier Name"
+      />
+      <input
+        type="text"
+        class="mt-2 w-100"
+        v-model="selectSupplier.company_name"
+        placeholder="Company Name"
+      />
+      <input
+        type="text"
+        class="mt-2 w-100"
+        v-model="selectSupplier.contact_number"
+        placeholder="Contact Number"
+      />
+      <input
+        type="email"
+        class="mt-2 w-100"
+        v-model="selectSupplier.email"
+        placeholder="email"
+      />
+      <input
+        type="text"
+        class="mt-2 w-100"
+        v-model="selectSupplier.address"
+        placeholder="address"
+      />
+
+      <the-button
+        :block="true"
+        class="mt-3 w-100"
+        type="submit"
+        :loading="loading"
+        >Update</the-button
+      >
+    </form>
+  </the-modal>
+
+  <the-modal v-model="deleteModal" heading="Delete Supplier">
+    <form @submit.prevent="deleteSupplier">
+      <!-- <input type="text" v-model="selectSupplierId" disabled /> -->
+
+      <p>
+        Are you sure you want to delete this {{ selectSupplier.supplier_name }}?
+      </p>
+
+      <the-button class="mt-3" type="submit" :loading="deleting"
+        >Yes</the-button
+      >
+      <the-button class="ml-3" color="gray" @click="deleteModal = false"
+        >Close</the-button
+      >
+    </form>
+  </the-modal>
 </template>
 
 <script>
@@ -83,8 +156,13 @@ import TheModal from "../../components/TheModal.vue";
 export default {
   data: () => ({
     showModal: false,
+    editModal: false,
+    deleteModal: false,
     loading: false,
     suppliers: [],
+    selectSupplier: {},
+    deleting: false,
+    editing: false,
     supplierLoading: false,
     form: {
       supplier_name: "",
@@ -93,6 +171,7 @@ export default {
       email: "",
       address: "",
     },
+    selectSupplierId: "",
   }),
   mounted() {
     this.getSuppliers();
@@ -149,6 +228,7 @@ export default {
           });
           this.showModal = false;
           this.resetForm();
+          this.getSuppliers();
         })
         .catch((err) => {
           // console.log(err.response.data.message);
@@ -160,6 +240,70 @@ export default {
         })
         .finally(() => {
           this.loading = false;
+        });
+    },
+
+    updateSupplier() {
+      this.editing = true;
+      axios
+        .post(
+          "https://api.epharma4u.com/api/v1/inventory/supplier/update",
+          this.selectSupplier,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          this.$eventBus.emit("toast", {
+            type: "Success",
+            message: "Supplier Updated Successfully",
+          });
+          this.editModal = false;
+          this.editing = false;
+        })
+        .catch((err) => {
+          // console.log(err.response.data.message);
+
+          this.$eventBus.emit("toast", {
+            type: "Error",
+            message: err.response.data.message,
+          });
+        })
+        .finally(() => {
+          this.editing = false;
+        });
+    },
+
+    deleteSupplier() {
+      this.deleting = true;
+      axios
+        .post(
+          "https://api.epharma4u.com/api/v1/inventory/supplier/delete",
+          this.selectSupplier,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+
+        .then((res) => {
+          this.$eventBus.emit("toast", {
+            type: "Success",
+            message: "Supplier Deleted Successfully",
+          });
+          this.deleteModal = false;
+          this.deleting = false;
+          this.getSuppliers();
+        })
+        .catch((err) => {
+          console.log(localStorage.getItem("token"));
+        })
+        .finally(() => {
+          this.deleting = false;
         });
     },
   },
