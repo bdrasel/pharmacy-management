@@ -153,6 +153,8 @@
 import axios from "axios";
 import TheButton from "../../components/TheButton.vue";
 import TheModal from "../../components/TheModal.vue";
+import { eventBus } from "../../utlis/eventBus";
+import { errorMessage, successMessage } from "../../utlis/functions";
 export default {
   data: () => ({
     showModal: false,
@@ -222,10 +224,13 @@ export default {
         )
         .then((res) => {
           console.log(res.data);
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: "Supplier Added Successfully",
-          });
+          // this.$eventBus.emit("toast", {
+          //   type: "Success",
+          //   message: "Supplier Added Successfully",
+          // });
+
+          successMessage("Supplier Added Successfully");
+
           this.showModal = false;
           this.resetForm();
           this.getSuppliers();
@@ -233,10 +238,7 @@ export default {
         .catch((err) => {
           // console.log(err.response.data.message);
 
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: err.response.data.message,
-          });
+          errorMessage(err);
         })
         .finally(() => {
           this.loading = false;
@@ -257,20 +259,16 @@ export default {
         )
         .then((res) => {
           console.log(res.data);
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: "Supplier Updated Successfully",
-          });
+
+          successMessage("Supplier Updated Successfully");
+
           this.editModal = false;
           this.editing = false;
         })
         .catch((err) => {
           // console.log(err.response.data.message);
 
-          this.$eventBus.emit("toast", {
-            type: "Error",
-            message: err.response.data.message,
-          });
+          errorMessage(err);
         })
         .finally(() => {
           this.editing = false;
@@ -291,10 +289,9 @@ export default {
         )
 
         .then((res) => {
-          this.$eventBus.emit("toast", {
-            type: "Success",
-            message: "Supplier Deleted Successfully",
-          });
+          console.log(res.data);
+          successMessage("Supplier Deleted Successfully");
+
           this.deleteModal = false;
           this.deleting = false;
           this.getSuppliers();

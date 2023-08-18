@@ -17,6 +17,7 @@
 
 <script>
 import TheToast from "./components/TheToast.vue";
+import { eventBus } from "./utlis/eventBus";
 export default {
   data: () => ({
     toasts: [
@@ -34,7 +35,7 @@ export default {
     TheToast,
   },
   mounted() {
-    this.$eventBus.on("toast", (toast) => {
+    eventBus.on("toast", (toast) => {
       this.toasts.push(toast);
       setTimeout(() => {
         this.toasts.shift();

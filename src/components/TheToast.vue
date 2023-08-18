@@ -17,7 +17,7 @@ export default {
     },
     toastMessage: {
       type: String,
-      default: "You have successfully logged in",
+      default: "",
     },
   },
 };
