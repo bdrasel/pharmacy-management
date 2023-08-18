@@ -57,6 +57,7 @@ import axios from "axios";
 import TheButton from "../components/TheButton.vue";
 import { eventBus } from "../utlis/eventBus";
 import { successMessage, errorMessage } from "../utlis/functions";
+import { setPrivateHeaders } from "../api/axiosinstance";
 
 export default {
   data: () => ({
@@ -95,6 +96,7 @@ export default {
           successMessage(res.data.user.user_name + " Logged in successfully");
 
           localStorage.setItem("token", res.data.access_token);
+          setPrivateHeaders();
           this.$router.push("/dashboard");
         })
         .catch((err) => {

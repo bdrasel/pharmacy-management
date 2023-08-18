@@ -139,9 +139,7 @@
         Are you sure you want to delete this {{ selectSupplier.supplier_name }}?
       </p>
 
-      <the-button class="mt-3" type="submit" :loading="deleting"
-        >Yes</the-button
-      >
+      <the-button class="mt-3" type="submit">Yes</the-button>
       <the-button class="ml-3" color="gray" @click="deleteModal = false"
         >Close</the-button
       >
@@ -153,8 +151,8 @@
 import axios from "axios";
 import TheButton from "../../components/TheButton.vue";
 import TheModal from "../../components/TheModal.vue";
-import { eventBus } from "../../utlis/eventBus";
 import { errorMessage, successMessage } from "../../utlis/functions";
+import privateApi from "../../api/privateApi";
 export default {
   data: () => ({
     showModal: false,
@@ -176,7 +174,7 @@ export default {
     selectSupplierId: "",
   }),
   mounted() {
-    this.getSuppliers();
+    setTimeout(this.getSuppliers, 1000);
   },
   methods: {
     resetForm() {
@@ -191,19 +189,14 @@ export default {
 
     getSuppliers() {
       this.supplierLoading = true;
-      axios
-        .get("https://api.epharma4u.com/api/v1/inventory/supplier/all", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
+      privateApi
+        .getSuppliers()
 
         .then((res) => {
           this.suppliers = res.data.data;
-          console.log(res.data.data);
         })
         .catch((err) => {
-          console.log(err.response.data.message);
+          errorMessage(err);
         })
         .finally(() => {
           this.supplierLoading = false;
@@ -212,23 +205,9 @@ export default {
 
     AddNewSupplier() {
       this.loading = true;
-      axios
-        .post(
-          "https://api.epharma4u.com/api/v1/inventory/supplier/create",
-          this.form,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
+      privateApi
+        .newSupplier(this.form)
         .then((res) => {
-          console.log(res.data);
-          // this.$eventBus.emit("toast", {
-          //   type: "Success",
-          //   message: "Supplier Added Successfully",
-          // });
-
           successMessage("Supplier Added Successfully");
 
           this.showModal = false;
@@ -236,8 +215,6 @@ export default {
           this.getSuppliers();
         })
         .catch((err) => {
-          // console.log(err.response.data.message);
-
           errorMessage(err);
         })
         .finally(() => {
@@ -247,27 +224,15 @@ export default {
 
     updateSupplier() {
       this.editing = true;
-      axios
-        .post(
-          "https://api.epharma4u.com/api/v1/inventory/supplier/update",
-          this.selectSupplier,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
+      privateApi
+        .updateSupplier(this.selectSupplier)
         .then((res) => {
-          console.log(res.data);
-
           successMessage("Supplier Updated Successfully");
 
           this.editModal = false;
           this.editing = false;
         })
         .catch((err) => {
-          // console.log(err.response.data.message);
-
           errorMessage(err);
         })
         .finally(() => {
@@ -277,17 +242,8 @@ export default {
 
     deleteSupplier() {
       this.deleting = true;
-      axios
-        .post(
-          "https://api.epharma4u.com/api/v1/inventory/supplier/delete",
-          this.selectSupplier,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
-
+      privateApi
+        .deleteSupplier(this.selectSupplier)
         .then((res) => {
           console.log(res.data);
           successMessage("Supplier Deleted Successfully");

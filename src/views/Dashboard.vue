@@ -17,10 +17,15 @@
 <script>
 import TheSidebar from "../components/TheSidebar.vue";
 import TheHeader from "../components/TheHeader.vue";
+import { setPrivateHeaders } from "../api/axiosinstance";
 export default {
   components: {
     TheSidebar,
     TheHeader,
+  },
+
+  mounted() {
+    setPrivateHeaders();
   },
 };
 </script>
