@@ -13,4 +13,17 @@ export default {
   deleteSupplier(data) {
     return axiosPrivate.post("/inventory/supplier/delete", data);
   },
+
+  getCategories() {
+    return axiosPrivate.get("/inventory/category/all");
+  },
+  newCategory(data) {
+    return axiosPrivate.post("/inventory/category/create", data);
+  },
+  updateCategory(data) {
+    return axiosPrivate.post("/inventory/category/update", data);
+  },
+  deleteCategory(data) {
+    return axiosPrivate.post("/inventory/category/delete", data);
+  },
 };

@@ -10,6 +10,8 @@ const Drugs = () => import("../views/dashboard/Drugs.vue");
 const Order = () => import("../views/dashboard/Order.vue");
 const Supplier = () => import("../views/dashboard/Supplier.vue");
 const Setting = () => import("../views/dashboard/Setting.vue");
+const DrugsCategory = () =>
+  import("../views/dashboard/category/DrugCategory.vue");
 
 const routes = [
   { path: "/", component: LoginPage },
@@ -19,6 +21,7 @@ const routes = [
     redirect: "/dashboard/overview",
     children: [
       { path: "overview", component: Overview },
+      { path: "drugs/category", component: DrugsCategory },
       { path: "drugs", component: Drugs },
       { path: "order", component: Order },
       { path: "supplier", component: Supplier },

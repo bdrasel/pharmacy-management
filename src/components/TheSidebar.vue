@@ -6,7 +6,9 @@
     <div class="sidebar__bottom">
       <nav class="sidebar__nav">
         <router-link to="/dashboard/overview">Dashboard</router-link>
+        <router-link to="/dashboard/drugs/category">Drugs Category</router-link>
         <router-link to="/dashboard/drugs">Drugs</router-link>
+
         <router-link to="/dashboard/supplier">Supplier</router-link>
         <router-link to="/dashboard/order">Orders</router-link>
       </nav>
