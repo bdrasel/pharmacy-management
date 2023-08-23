@@ -94,8 +94,6 @@
 
   <the-modal v-model="deleteModal" heading="Delete Drugs Category">
     <form @submit.prevent="deleteCategory">
-      <!-- <input type="text" v-model="selectSupplierId" disabled /> -->
-
       <p>Are you sure you want to delete this {{ selectCategory.name }}?</p>
 
       <the-button class="mt-3" type="submit">Yes</the-button>

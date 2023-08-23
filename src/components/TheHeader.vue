@@ -4,13 +4,40 @@
       <input type="text" class="the-header__search" placeholder="search...." />
     </div>
     <div class="avatar-wrapper">
-      <div class="avatar">R</div>
+      <div class="avatar" @click="showAvatar = !showAvatar">R</div>
+      <div class="avatar__overflow" v-show="showAvatar">
+        <div class="avatar__overflow-title">test@gmail.com</div>
+        <router-link to="/dashboard/settings/account">
+          <div
+            class="avatar__overflow-link mt-2"
+            @click="
+              showAvatar = false;
+              $router.push('/dashboard/settings');
+            "
+          >
+            Settings
+          </div>
+        </router-link>
+        <router-link to="#" @click="logout">
+          <div class="avatar__overflow-link mb-2">Logout</div>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data: () => ({
+    showAvatar: false,
+  }),
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push("/");
+    },
+  },
+};
 </script>
 
 <style>

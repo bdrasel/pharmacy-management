@@ -24,6 +24,12 @@ export default {
     TheHeader,
   },
 
+  created() {
+    if (!localStorage.getItem("token")) {
+      this.$router.push("/");
+    }
+  },
+
   mounted() {
     setPrivateHeaders();
   },

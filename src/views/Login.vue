@@ -67,6 +67,13 @@ export default {
     },
     loggedIn: false,
   }),
+
+  created() {
+    if (localStorage.getItem("token")) {
+      this.$router.push("/dashboard");
+    }
+  },
+
   components: {
     TheButton,
   },
