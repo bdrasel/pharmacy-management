@@ -44,8 +44,8 @@ export default {
 .the-button button {
   padding: 9px 22px;
   font-size: 15px;
-  background-color: var(--brand-color);
-  border: 1px solid var(--brand-color);
+  background-color: #0a4219;
+  border: 1px solid #0a4219;
   color: #fff;
   cursor: pointer;
   box-shadow: 0 2px 2px 1px #afafaf;
@@ -73,7 +73,7 @@ export default {
   justify-content: center;
   align-items: center;
   color: #fff;
-  background-color: rgb(48, 15, 15);
+  background-color: #0a4219;
 }
 
 .the-button button {

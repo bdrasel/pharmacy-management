@@ -26,4 +26,17 @@ export default {
   deleteCategory(data) {
     return axiosPrivate.post("/inventory/category/delete", data);
   },
+
+  getStorages() {
+    return axiosPrivate.get("/inventory/storage/all");
+  },
+  newStorage(data) {
+    return axiosPrivate.post("/inventory/storage/create", data);
+  },
+  updateStorage(data) {
+    return axiosPrivate.post("/inventory/storage/update", data);
+  },
+  deleteStorage(data) {
+    return axiosPrivate.post("/inventory/storage/delete", data);
+  },
 };

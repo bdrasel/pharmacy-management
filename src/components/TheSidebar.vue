@@ -7,6 +7,7 @@
       <nav class="sidebar__nav">
         <router-link to="/dashboard/overview">Dashboard</router-link>
         <router-link to="/dashboard/drugs/category">Drugs Category</router-link>
+        <router-link to="/dashboard/drugs/storage">Drugs Storage</router-link>
         <router-link to="/dashboard/drugs">Drugs</router-link>
 
         <router-link to="/dashboard/supplier">Supplier</router-link>
@@ -25,14 +26,14 @@ export default {};
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: var(--brand-color);
+  background-color: #0a4219;
   color: #f0faf5;
 }
 
 .sidebar__top {
   padding: 11px 22px;
   color: #28a745;
-  text-shadow: 0 1px 0 #040404;
+  text-shadow: 0 1px 0 #0a4219;
 }
 
 .sidebar__bottom {
@@ -45,9 +46,9 @@ export default {};
   display: block;
   padding: 9px 22px;
   text-decoration: none;
-  border-bottom: 1px solid var(--brand-color);
+  border-bottom: 1px solid #0a4219;
   color: #a7a097;
-  border-left: 4px solid var(--brand-color);
+  border-left: 4px solid #0a4219;
   text-shadow: none;
 }
 

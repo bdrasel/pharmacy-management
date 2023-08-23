@@ -13,6 +13,8 @@ const Setting = () => import("../views/dashboard/Setting.vue");
 const DrugsCategory = () =>
   import("../views/dashboard/category/DrugCategory.vue");
 
+const DrugsStorage = () => import("../views/dashboard/Storage.vue");
+
 const routes = [
   { path: "/", component: LoginPage },
   {
@@ -22,6 +24,7 @@ const routes = [
     children: [
       { path: "overview", component: Overview },
       { path: "drugs/category", component: DrugsCategory },
+      { path: "drugs/storage", component: DrugsStorage },
       { path: "drugs", component: Drugs },
       { path: "order", component: Order },
       { path: "supplier", component: Supplier },
