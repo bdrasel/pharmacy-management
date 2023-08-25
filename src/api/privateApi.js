@@ -1,6 +1,7 @@
 import { axiosPrivate } from "./axiosinstance";
 
 export default {
+  //============ supplier api ==================//
   getSuppliers() {
     return axiosPrivate.get("/inventory/supplier/all");
   },
@@ -13,7 +14,9 @@ export default {
   deleteSupplier(data) {
     return axiosPrivate.post("/inventory/supplier/delete", data);
   },
+  //============ supplier api ==================//
 
+  //============ category api ==================//
   getCategories() {
     return axiosPrivate.get("/inventory/category/all");
   },
@@ -26,7 +29,9 @@ export default {
   deleteCategory(data) {
     return axiosPrivate.post("/inventory/category/delete", data);
   },
+  //============ category api ==================//
 
+  //============ storage api ==================//
   getStorages() {
     return axiosPrivate.get("/inventory/storage/all");
   },
@@ -39,4 +44,20 @@ export default {
   deleteStorage(data) {
     return axiosPrivate.post("/inventory/storage/delete", data);
   },
+  //============ storage api ==================//
+
+  //============ manufacturer api ==================//
+  getManufacturers() {
+    return axiosPrivate.get("/inventory/manufacturer/all");
+  },
+  newManufacturer(data) {
+    return axiosPrivate.post("/inventory/manufacturer/create", data);
+  },
+  updateManufacturer(data) {
+    return axiosPrivate.post("/inventory/manufacturer/update", data);
+  },
+  deleteManufacturer(data) {
+    return axiosPrivate.post("/inventory/manufacturer/delete", data);
+  },
+  //============ manufacturer api ==================//
 };

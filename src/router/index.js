@@ -14,6 +14,7 @@ const DrugsCategory = () =>
   import("../views/dashboard/category/DrugCategory.vue");
 
 const DrugsStorage = () => import("../views/dashboard/Storage.vue");
+const DrugsManufacturer = () => import("../views/dashboard/Manufacturer.vue");
 
 const routes = [
   { path: "/", component: LoginPage },
@@ -25,6 +26,7 @@ const routes = [
       { path: "overview", component: Overview },
       { path: "drugs/category", component: DrugsCategory },
       { path: "drugs/storage", component: DrugsStorage },
+      { path: "drugs/manufacturer", component: DrugsManufacturer },
       { path: "drugs", component: Drugs },
       { path: "order", component: Order },
       { path: "supplier", component: Supplier },

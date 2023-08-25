@@ -8,6 +8,7 @@
         <router-link to="/dashboard/overview">Dashboard</router-link>
         <router-link to="/dashboard/drugs/category">Drugs Category</router-link>
         <router-link to="/dashboard/drugs/storage">Drugs Storage</router-link>
+        <router-link to="/dashboard/drugs/manufacturer">Drugs Manufacturer</router-link>
         <router-link to="/dashboard/drugs">Drugs</router-link>
 
         <router-link to="/dashboard/supplier">Supplier</router-link>
