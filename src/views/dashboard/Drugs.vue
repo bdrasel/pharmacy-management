@@ -1,11 +1,23 @@
 <template>
-  <div class="drugs">
-    <h1>Drugs</h1>
+  <div class="d-flex jc-between ai-center">
+    <h2>Drugs</h2>
+    <the-button>
+      <router-link to="/dashboard/drug/create">Add Drug</router-link>
+    </the-button>
   </div>
 </template>
 
 <script>
-export default {};
+import TheButton from "../../components/TheButton.vue";
+
+export default {
+  components: { TheButton },
+};
 </script>
 
-<style></style>
+<style>
+button a {
+  color: #fff;
+  text-decoration: none;
+}
+</style>

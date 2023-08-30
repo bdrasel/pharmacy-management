@@ -7,6 +7,7 @@ import LoginPage from "../views/Login.vue";
 import DashboardPage from "../views/Dashboard.vue";
 const Overview = () => import("../views/dashboard/Overview.vue");
 const Drugs = () => import("../views/dashboard/Drugs.vue");
+const DrugCreate = () => import("../views/dashboard/DrugCreate.vue");
 const Order = () => import("../views/dashboard/Order.vue");
 const Supplier = () => import("../views/dashboard/Supplier.vue");
 const Setting = () => import("../views/dashboard/Setting.vue");
@@ -28,6 +29,7 @@ const routes = [
       { path: "drugs/storage", component: DrugsStorage },
       { path: "drugs/manufacturer", component: DrugsManufacturer },
       { path: "drugs", component: Drugs },
+      { path: "drug/create", component: DrugCreate },
       { path: "order", component: Order },
       { path: "supplier", component: Supplier },
       { path: "setting", component: Setting },
